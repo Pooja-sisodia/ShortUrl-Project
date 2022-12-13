@@ -5,9 +5,11 @@ const  app = express();
 
 app.use(express.json());
 
+mongoose.set('strictQuery', false);
 mongoose.connect("mongodb+srv://varinda:Flipkart@newproject.7qwzr8u.mongodb.net/group16Database",{
     useNewUrlParser:true
 })
+
 .then(()=> console.log("MongoDb is connected"))
 .catch((error)=> console.log(error))
 
