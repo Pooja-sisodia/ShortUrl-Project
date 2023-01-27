@@ -6,9 +6,9 @@ const { GET_ASYNC, SET_ASYNC } = require('../redis/redis')
 
 //========================================Regex-And-Validators============================================//
 const isValid = function(longUrl){
-if (typeof longUrl === "undefined" || longUrl === null ||
-      (typeof longUrl === "string" && longUrl.length === 0)
-    ) return res.status(400).send({ status: false, message: "Please enter a url" });
+if (typeof longUrl === "undefined" || longUrl === null)return false
+if(typeof longUrl === "string" && longUrl.length === 0)return false
+    return true
 }
     function isValidURL(url) {
       let res = url.match(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/);
@@ -28,7 +28,7 @@ const createShortUrl = async function (req, res) {
 
     let { longUrl } = body;   //destructuring loNGUrl in body
 
-    if(isValid(longUrl)){return res.status(400).send({status:false, message:"please provide the LongUrl"})}
+    if(!isValid(longUrl)){return res.status(400).send({status:false, message:"please provide the LongUrl"})}
 
     if(!isValidURL(longUrl)) return res.status(400).send({ status: false, message: "Please provide LongUrl in correct format" })
 
